@@ -8,7 +8,7 @@ jobs:
  ci-cd:
   runs-on: ubuntu-latest
   env:
-   DOCKER_IMAGE: 
+   DOCKER_IMAGE: nandatech2/getting-started
    
   steps:
     - name: Checkout Code
