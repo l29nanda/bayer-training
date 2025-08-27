@@ -1,0 +1,15 @@
+name: github CI based on manual trigger
+on:
+  workflow_dispatch:         # Manual trigger
+    inputs:
+      environment:
+        description: 'Deploy environment'
+        required: true
+        default: 'staging'
+   
+jobs:
+ manualtrigger: 
+   runs-on: ubuntu-latest
+   steps:
+    - run: 
+       echo "manual trigger"
