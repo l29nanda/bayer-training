@@ -1,0 +1,12 @@
+name: github CI based on pull_request
+on:
+  pull_request:
+   types: [opened, closed, reopened, synchronize, labeled, unlabeled, ready_for_review, review_requested, review_request_removed, converted_to_draft]
+   branches: main
+   
+jobs:
+ triggered_based_on_pull_request: 
+   runs-on: ubuntu-latest
+   steps:
+    - run: 
+       echo "can you check how many PR is open?"
