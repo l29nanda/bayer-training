@@ -1,0 +1,145 @@
+
+name: all-github-events-sample
+
+on:
+  # --------------------
+  # Common workflow triggers
+  # --------------------
+  push:                      # Trigger on push
+    branches: [ main, dev ]  # Filter by branches
+    tags: [ 'v*' ]           # Filter by tags
+    paths: [ 'src/**' ]      # Filter by file path
+    paths-ignore: [ 'docs/**' ]
+
+  pull_request:              # Trigger on PR events
+    types: [opened, closed, reopened, synchronize, labeled, unlabeled, ready_for_review, review_requested, review_request_removed, converted_to_draft]
+    branches: [ main ]
+    paths: [ '**.js' ]
+
+  workflow_dispatch:         # Manual trigger
+    inputs:
+      environment:
+        description: 'Deploy environment'
+        required: true
+        default: 'staging'
+
+  schedule:                  # Cron schedule (UTC time)
+    - cron: '0 0 * * *'      # Daily at midnight UTC
+
+  workflow_call:             # Call from another workflow
+    inputs:
+      param:
+        required: true
+        type: string
+
+  # --------------------
+  # Repository activity events
+  # --------------------
+  issues:
+    types: [opened, edited, deleted, transferred, pinned, unpinned, closed, reopened, assigned, unassigned, labeled, unlabeled, locked, unlocked, milestoned, demilestoned]
+
+  issue_comment:
+    types: [created, edited, deleted]
+
+  discussions:
+    types: [created, edited, answered, unanswered, labeled, unlabeled, locked, unlocked, transferred, category_changed, pinned, unpinned, reopened]
+
+  discussion_comment:
+
+    types: [created, edited, deleted]
+
+  commit_comment:
+    types: [created]
+
+  release:
+    types: [published, unpublished, created, edited, deleted, prereleased, released]
+
+  create:  # branch or tag created
+  delete:  # branch or tag deleted
+  fork:    # repo forked
+
+  watch:   # when someone stars the repo
+    types: [started]
+
+  member:
+    types: [added, edited, deleted]
+
+  repository_dispatch:       # External trigger via API
+    types: [custom-event]
+
+  # --------------------
+  # PR Review Events
+  # --------------------
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+
+
+  pull_request_review_comment:
+    types: [created, edited, deleted]
+
+  # --------------------
+  # CI/CD Related
+  # --------------------
+  deployment:
+  deployment_status:
+
+  check_run:
+    types: [created, rerequested, completed]
+
+  check_suite:
+    types: [completed, requested, rerequested]
+
+  status:   # Commit status updated
+
+  # --------------------
+  # Project & Milestones
+  # --------------------
+  project:
+    types: [created, updated, closed, reopened, deleted]
+
+  project_card:
+    types: [created, moved, converted, edited, deleted]
+
+  project_column:
+    types: [created, updated, moved, deleted]
+
+  milestone:
+    types: [created, closed, opened, edited, deleted]
+
+  # --------------------
+  # Security & Repo Events
+  # --------------------
+  page_build:
+  public:   # repo made public
+  registry_package:
+    types: [published, updated]
+
+  secret_scanning_alert:
+    types: [created, resolved, reopened]
+
+  # --------------------
+  # GitHub Advanced Security Events
+  # --------------------
+  code_scanning_alert:
+    types: [created, fixed, reopened, closed]
+
+  dependabot_alert:
+    types: [created, dismissed, resolved, reopened, fixed]
+
+  security_advisory:
+
+    types: [published, updated, withdrawn]
+
+jobs:
+  show-event:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show event name and payload
+        run: |
+          echo "Event Name: ${{ github.event_name }}"
+          echo "Event Action: ${{ github.event.action }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Event Payload:"
+          cat $GITHUB_EVENT_PATH
