@@ -1,0 +1,11 @@
+name: github CI based on issues
+on:
+  issues:
+   types: [opened, edited, deleted, transferred, pinned, unpinned, closed, reopened, assigned, unassigned, labeled, unlabeled, locked, unlocked, milestoned, demilestoned]
+    
+jobs:
+ show: 
+   runs-on: ubuntu-latest
+   steps:
+    - run: 
+       echo "can you check the issue type ?"
