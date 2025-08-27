@@ -1,0 +1,11 @@
+name: github actions for on push event
+on:
+  push:
+    branches: main
+
+jobs:
+ on-push-step: 
+   runs-on: ubuntu-latest
+   steps: sample run
+    - run: 
+       echo "checking on push trigger event"
