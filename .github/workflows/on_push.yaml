@@ -6,6 +6,6 @@ on:
 jobs:
  on-push-step: 
    runs-on: ubuntu-latest
-   steps: sample run
+   steps:
     - run:
-       echo "checking on push trigger event"
+        echo "checking on push trigger event"
