@@ -1,0 +1,11 @@
+name: CI based on PUSH
+on:
+  push:
+    branches: main
+
+jobs:
+ on-push-step: 
+   runs-on: ubuntu-latest
+   steps: sample run
+    - run: 
+       echo "checking on push trigger event"
